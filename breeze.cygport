@@ -1,0 +1,64 @@
+inherit kde4 kf5
+
+NAME="breeze"
+VERSION=5.8.5
+RELEASE=1
+CATEGORY="X11"
+SUMMARY="KDE 5 theme"
+DESCRIPTION="A GTK+ theme built to match KDE's Breeze."
+
+PKG_NAMES="breeze breeze-cursors breeze-kde4"
+breeze_REQUIRES="breeze-icons breeze-cursors"
+breeze_CONTENTS="
+	usr/bin/breeze-settings5.exe
+	usr/lib/cmake/Breeze/
+	usr/lib/qt5/plugins/kstyle_breeze_config.dll
+	usr/lib/qt5/plugins/org.kde.kdecoration2/breezedecoration.dll
+	usr/lib/qt5/plugins/styles/breeze.dll
+	usr/lib/qt5/qml/QtQuick/Controls/Styles/Breeze/
+	usr/share/QtCurve/Breeze.qtcurve
+	usr/share/color-schemes/Breeze*.colors
+	usr/share/doc/breeze/
+	usr/share/icons/hicolor/scalable/apps/breeze-settings.svgz
+	usr/share/kservices5/breezedecorationconfig.desktop
+	usr/share/kservices5/breezestyleconfig.desktop
+	usr/share/kstyle/themes/breeze.themerc
+	usr/share/locale/*/LC_MESSAGES/breeze_kwin_deco.mo
+	usr/share/locale/*/LC_MESSAGES/breeze_style_config.mo
+	usr/share/plasma/look-and-feel/org.kde.breezedark.desktop/
+	usr/share/wallpapers/Next/
+"
+breeze_kde4_REQUIRES="breeze-icons breeze-cursors"
+breeze_kde4_CONTENTS="
+	usr/lib/kde4/kstyle_breeze_config.dll
+	usr/lib/kde4/plugins/styles/breeze.dll
+	usr/share/kde4/apps/kstyle/themes/breeze.themerc
+"
+breeze_cursors_CONTENTS="
+	etc/postinstall/breeze.sh
+	etc/postinstall/zp_breeze.sh
+	etc/preremove/breeze.sh
+	usr/share/icons/Breeze_Snow/
+	usr/share/icons/breeze_cursors/
+"
+
+src_compile() {
+	mkdir -p ${B}/kf5
+	cd ${B}/kf5
+	kf5_compile
+
+	mkdir -p ${B}/kde4
+	cd ${B}/kde4
+	kde4_compile -DUSE_KDE4=ON
+}
+
+src_install() {
+	cd ${B}/kf5
+	cyginstall
+	cd ${B}/kde4
+	cyginstall
+
+	# causes problems for new users
+	rm -f ${D}/usr/lib/kconf_update_bin/kde4breeze.exe \
+	      ${D}/usr/share/kconf_update/kde4breeze.upd
+}
