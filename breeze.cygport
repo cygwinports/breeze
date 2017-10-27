@@ -1,7 +1,7 @@
 inherit kde4 kf5
 
 NAME="breeze"
-VERSION=5.8.5
+VERSION=5.8.8
 RELEASE=1
 CATEGORY="X11"
 SUMMARY="KDE 5 theme"
@@ -25,6 +25,7 @@ breeze_CONTENTS="
 	usr/share/kstyle/themes/breeze.themerc
 	usr/share/locale/*/LC_MESSAGES/breeze_kwin_deco.mo
 	usr/share/locale/*/LC_MESSAGES/breeze_style_config.mo
+	usr/share/metainfo/org.kde.breezedark.desktop.appdata.xml
 	usr/share/plasma/look-and-feel/org.kde.breezedark.desktop/
 	usr/share/wallpapers/Next/
 "
