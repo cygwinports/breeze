@@ -1,7 +1,7 @@
 inherit kde4 kf5
 
 NAME="breeze"
-VERSION=5.8.8
+VERSION=5.8.9
 RELEASE=1
 CATEGORY="X11"
 SUMMARY="KDE 5 theme"
@@ -55,9 +55,9 @@ src_compile() {
 
 src_install() {
 	cd ${B}/kf5
-	cyginstall
+	ninja_install
 	cd ${B}/kde4
-	cyginstall
+	ninja_install
 
 	# causes problems for new users
 	rm -f ${D}/usr/lib/kconf_update_bin/kde4breeze.exe \
